@@ -107,7 +107,7 @@ int main()
 }
 ```
 **8\.** Получаем ответ.\
-![Рис.3 Результат работы программы](https://raw.githubusercontent.com/GachiGucciGhoul/Laboratory_works/master/lab3/Images_for_lab1/3.PNG)\
+![Рис.3 Результат работы программы](https://github.com/DaraPiht/Laba3/blob/master/Prog%20lab%203/Prog_Lab3/pic3.PNG)\
 *рис.3: Результат работы программы*\
 \
 **Вывод:** в ходе выполнения данной лабораторной работы приобрела навыки подключения сторонних библиотек и научилась декодировать текст из изображения.
