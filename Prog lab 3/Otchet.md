@@ -34,44 +34,43 @@
 **Ход работы:**\
 **1\.** Для работы с изображениями в формате bmp скачаем библиотеку с github.\
 **2\.** В скаченном репозитории находим папку CPP, в ней расположены файлы которые нужно подключить к своему проекту.\
-**3\.** Файл libbmp.cpp скопируем в папку проекта и добавим к проекту.\
-![Рис.1 Добавление элемента](https://raw.githubusercontent.com/GachiGucciGhoul/Laboratory_works/master/lab3/Images_for_lab1/1.png)
-*рис.1: Добавление элемента*\
-\
+**3\.** Файл libbmp.cpp скопируем в папку проекта и добавим к проекту.\\
 **4\.** В папке с проектом создаем папку include и скопируем туда libbmp.h\
 **5\.** Добавим папку include к нашему проекту.\
-![Рис.2 Добавление и подключение папки include](https://raw.githubusercontent.com/GachiGucciGhoul/Laboratory_works/master/lab3/Images_for_lab1/2.PNG)
-*рис.2: Добавление и подключение папки include*\
+![Рис.1 Добавление и подключение папки include](https://github.com/DaraPiht/Laba3/blob/master/Prog%20lab%203/Prog_Lab3/pic1.PNG)
+*рис.1: Добавление и подключение папки include*\
 \
 **6\.** В соответствии с вариантом качаем картинку и берем ключ для нее.\
 Ключ для 5го варианта: 00r 00b 00g 01r 01b 01g 10r 10b\
-![Рис.3 Картинка седьмого варианта](https://github.com/DaraPiht/Laba3/blob/master/Prog%20lab%203/Prog_Lab3/pic7.bmp)\
-*рис.3: Картинка седьмого варианта*\
+![Рис.2 Картинка седьмого варианта](https://github.com/DaraPiht/Laba3/blob/master/Prog%20lab%203/Prog_Lab3/pic7.bmp)\
+*рис.2: Картинка седьмого варианта*\
 \
 **7\.** Для решение поставленной задачи пишем код:
 ```c++
 #include <iostream>
 #include "libbmp.h"
 
-short Bit = 7;  // Переменная, хранящая номер текущего читаемого бита
-short Byte = 0; // Переменная, хранящая номер текущего читаемого байта
-char text[4000]; // Массив, хронящий полученный текст
+using namespace std;
 
-bool end = false;
+int Bit = 7;  
+int Byte = 0; 
+char text[4000]; 
+bool _end = false;
 
-void addBit(char bit)  // Добавляем новый бит в строку
+void pls_bit(char b) 
 {
-	if (end) return;
+	if (_end)
+		return; 
 
-	// Установка бита в нужную позицию при помощи сдвига
-	text[Byte] |= bit << Bit--;
-
-	// Переход к следующему байту
+	b = b << Bit;
+	text[Byte] = text[Byte] | b;
+	Bit--;
+	
 	if (Bit < 0)
 	{
 		if (text[Byte] == '\0')
 		{
-			end = true;
+			_end = true;
 		}
 
 		Bit = 7;
@@ -83,31 +82,33 @@ int main()
 {
 
 	BmpImg pic;
-	pic.read("pic5.bmp");
+	pic.read("pic7.bmp");
 	
-	for (int y = pic.get_height() - 1; y >= 0; y--)  // 11r 11b 11g 01r 01b 01g 10r 10b
+	for (int x = 0; x <= pic.get_width() - 1; x++) 
 	{
-		for (int x = pic.get_width() - 1; x >= 0; x--)
+		for (int y = 0; y <= pic.get_height() - 1; y++)
 		{
 
-			uint8_t bit1 = pic.red_at(x, y) & 0b1;
-			uint8_t bit2 = pic.blue_at(x, y) & 0b1;
-			uint8_t bit3 = pic.green_at(x, y) & 0b1;
+			char b1 = pic.red_at(x, y) & 0b1;
+			char b2 = pic.blue_at(x, y) & 0b1;
+			char b3 = pic.green_at(x, y) & 0b1;
 
-			addBit(bit1); addBit(bit2); addBit(bit3);
+			pls_bit(b1); pls_bit(b2); pls_bit(b3);
 
-			if (end) break;
+			if (_end)
+				break;
 		}
 
-		if (end) break;
+		if (_end)
+			break;
 	}
 
-	std::cout << text<<"\n";
+	cout << text<<"\n";
 }
 ```
 **8\.** Получаем ответ.\
 ![Рис.3 Результат работы программы](https://raw.githubusercontent.com/GachiGucciGhoul/Laboratory_works/master/lab3/Images_for_lab1/3.PNG)\
 *рис.3: Результат работы программы*\
 \
-**Вывод:** в ходе выполнения данной лабораторной работы приобрел навыки подключения сторонних библиотек и научился декодировать текст из изображения.
+**Вывод:** в ходе выполнения данной лабораторной работы приобрела навыки подключения сторонних библиотек и научилась декодировать текст из изображения.
 
