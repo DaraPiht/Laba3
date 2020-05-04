@@ -78,6 +78,7 @@ void pls_bit(char b)
 	}
 }
 
+
 int main()
 {
 
